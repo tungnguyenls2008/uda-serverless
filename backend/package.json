@@ -1,0 +1,38 @@
+{
+  "name": "serverless-todo-app",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Serverless TODO image app",
+  "main": "handler.js",
+  "scripts": {
+    "start": "sls offline start --stage dev --reloadHandler --host 0.0.0.0",
+    "dynamodb:install": "sls dynamodb install"
+  },
+  "keywords": [],
+  "author": "Ivan Mushketyk",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.425.0",
+    "@aws-sdk/client-s3": "^3.425.0",
+    "@aws-sdk/lib-dynamodb": "^3.425.0",
+    "@aws-sdk/s3-request-presigner": "^3.425.0",
+    "@middy/core": "^3.6.2",
+    "@middy/http-cors": "^3.6.2",
+    "@middy/http-error-handler": "^3.6.2",
+    "aws-sdk": "^2.1413.0",
+    "aws-xray-sdk-core": "^3.5.2",
+    "axios": "^1.5.1",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwk-to-pem": "^2.0.5",
+    "nanoid": "^4.0.2",
+    "uuid": "^9.0.1",
+    "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "serverless-dynamodb": "^0.2.40",
+    "serverless-iam-roles-per-function": "^3.2.0",
+    "serverless-offline": "^12.0.4",
+    "serverless-plugin-tracing": "^2.0.0"
+  }
+}
