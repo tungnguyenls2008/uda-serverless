@@ -10,21 +10,26 @@ export function NewTodoInput({ onNewTodo }) {
   const { getAccessTokenSilently } = useAuth0()
 
   const onTodoCreate = async (event) => {
-    try {
-      const accessToken = await getAccessTokenSilently({
-        audience: `https://dev-gla24xkhix8i4hou.us.auth0.com/api/v2/`,
-        scope: 'write:todos'
-      })
-      const dueDate = calculateDueDate()
-      const createdTodo = await createTodo(accessToken, {
-        name: newTodoName,
-        dueDate
-      })
-      onNewTodo(createdTodo)
-    } catch (e) {
-      console.log('Failed to created a new TODO', e)
-      alert('Todo creation failed')
+    if (newTodoName.length<5){
+      alert('Your todo task name must contain more than 5 characters')
+    }else{
+      try {
+        const accessToken = await getAccessTokenSilently({
+          audience: `https://dev-gla24xkhix8i4hou.us.auth0.com/api/v2/`,
+          scope: 'write:todos'
+        })
+        const dueDate = calculateDueDate()
+        const createdTodo = await createTodo(accessToken, {
+          name: newTodoName,
+          dueDate
+        })
+        onNewTodo(createdTodo)
+      } catch (e) {
+        console.log('Failed to created a new TODO', e)
+        alert('Todo creation failed')
+      }
     }
+
   }
 
   return (

@@ -19,7 +19,9 @@ provider:
     TODOS_CREATED_AT_INDEX: CreatedAtIndex
     INDEX_NAME: TodoIdIndex
     ATTACHMENT_S3_BUCKET: todo-tungnd32
-
+  tracing:
+    lambda: true
+    apiGateway: true
 functions:
 
   Auth:
@@ -54,6 +56,12 @@ functions:
             requestModels:
               'application/json': CreateTodoRequest
           reqValidatorName: onlyBody
+          request:
+            schemas:
+              application/json:
+                schema: ${file(models/create-todo-request.json)}
+                name: CreateTodoRequest
+                description: 'Validation for creating todo task'
     iamRoleStatements:
       - Effect: Allow
         Action:

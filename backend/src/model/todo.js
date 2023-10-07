@@ -1,4 +1,4 @@
-// import { DynamoDB } from '@aws-sdk/client-dynamodb'
+//import { DynamoDB } from '@aws-sdk/client-dynamodb'
 import { DynamoDBClient, QueryCommand } from '@aws-sdk/client-dynamodb'
 import {
   DeleteCommand,
@@ -8,6 +8,8 @@ import {
   UpdateCommand
 } from '@aws-sdk/lib-dynamodb'
 import { nanoid } from 'nanoid'
+import AwsXray from 'aws-xray-sdk-core'
+
 // const documentClient = new DynamoDB()
 // High-level client
 const client = new DynamoDBClient()
