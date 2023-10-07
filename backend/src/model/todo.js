@@ -11,7 +11,11 @@ import { nanoid } from 'nanoid'
 // const documentClient = new DynamoDB()
 // High-level client
 const client = new DynamoDBClient()
-const docClient = DynamoDBDocumentClient.from(client)
+const docClient = DynamoDBDocumentClient.from(client, {
+  marshallOptions: {
+    removeUndefinedValues: true
+  }
+})
 import { createLogger } from '../utils/logger.mjs'
 import {
   S3Client,
@@ -125,6 +129,28 @@ export class TodoModel {
     })
     console.log(url)
     return url
+  }
+
+  async updateImage(todoUpdate, todoId, userId) {
+    logger.info('Updating a todo image', todoUpdate)
+    const params = {
+      TableName: this.tableName,
+      Key: {
+        todoId: todoId,
+        userId: userId
+      },
+      UpdateExpression: 'set #attachmentUrl = :attachmentUrl',
+      ExpressionAttributeNames: {
+        '#attachmentUrl': 'attachmentUrl'
+      },
+      ExpressionAttributeValues: {
+        ':attachmentUrl': todoUpdate.attachmentUrl,
+      },
+      ReturnValues: 'UPDATED_NEW'
+    }
+    const result = await docClient.send(new UpdateCommand(params))
+    console.log(result)
+    return todoUpdate
   }
 }
 export const todoModel = new TodoModel()

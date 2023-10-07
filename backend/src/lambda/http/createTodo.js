@@ -3,6 +3,7 @@ import { getUserId } from '../auth/jwt.js'
 
 export async function handler(event, context, callback) {
   const newTodo = JSON.parse(event.body)
+  console.log(newTodo)
   // TODO: Implement creating a new TODO item
   await todoModel.create(newTodo, getUserId(event))
   return {

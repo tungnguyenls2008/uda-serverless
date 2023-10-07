@@ -94,11 +94,13 @@ export function Todos() {
         audience: `https://dev-gla24xkhix8i4hou.us.auth0.com/api/v2/`,
         scope: 'write:todo'
       })
+      console.log('patching todo')
       await patchTodo(accessToken, todo.todoId, {
         name: todo.name,
         dueDate: todo.dueDate,
         done: !todo.done
       })
+      console.log('setting todo')
       setTodos(
         update(todos, {
           [pos]: { done: { $set: !todo.done } }
